@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      /* Complete defense against Vite WebSocket HMR disconnect popups in iframe environment */
+      (function() {
+        window.addEventListener('error', function(e) {
+          var msg = String((e && (e.message || (e.error && e.error.message))) || '');
+          if (/websocket|vite|ws:\/\/|wss:\/\//i.test(msg)) {
+            e.stopImmediatePropagation && e.stopImmediatePropagation();
+            e.preventDefault && e.preventDefault();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = (e && e.reason) || '';
+          var msg = String((typeof reason === 'object' && reason ? (reason.message || reason.stack) : reason) || '');
+          if (/websocket|vite|ws:\/\/|wss:\/\//i.test(msg)) {
+            e.stopImmediatePropagation && e.stopImmediatePropagation();
+            e.preventDefault && e.preventDefault();
+            return true;
+          }
+        }, true);
+
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var OrigWebSocket = window.WebSocket;
+          window.WebSocket = function(url, protocols) {
+            try {
+              var ws = new OrigWebSocket(url, protocols);
+              ws.addEventListener('error', function(err) {
+                err.stopImmediatePropagation && err.stopImmediatePropagation();
+                err.preventDefault && err.preventDefault();
+              });
+              ws.addEventListener('close', function(ev) {
+                ev.stopImmediatePropagation && ev.stopImmediatePropagation();
+              });
+              return ws;
+            } catch (err) {
+              return {
+                addEventListener: function() {},
+                removeEventListener: function() {},
+                dispatchEvent: function() { return false; },
+                send: function() {},
+                close: function() {},
+                readyState: 3
+              };
+            }
+          };
+          window.WebSocket.prototype = OrigWebSocket.prototype;
+          window.WebSocket.CONNECTING = OrigWebSocket.CONNECTING;
+          window.WebSocket.OPEN = OrigWebSocket.OPEN;
+          window.WebSocket.CLOSING = OrigWebSocket.CLOSING;
+          window.WebSocket.CLOSED = OrigWebSocket.CLOSED;
+        }
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kunal Shrivastav | Full-Stack MERN Developer</title>
+    <meta name="description" content="Portfolio of Kunal Shrivastav, Full-Stack MERN Developer specializing in React, Node.js, Express, and MongoDB. Production OTT and full-stack web applications." />
+    <meta property="og:title" content="Kunal Shrivastav | Full-Stack MERN Developer" />
+    <meta property="og:description" content="Portfolio of Kunal Shrivastav, Full-Stack MERN Developer specializing in React, Node.js, Express, and MongoDB. Production OTT and full-stack web applications." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#040806] text-[#e2e8f0] font-sans antialiased selection:bg-emerald-500 selection:text-black min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

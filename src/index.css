@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-emerald-50: var(--theme-50, #ecfdf5);
+  --color-emerald-100: var(--theme-100, #d1fae5);
+  --color-emerald-200: var(--theme-200, #a7f3d0);
+  --color-emerald-300: var(--theme-300, #6ee7b7);
+  --color-emerald-400: var(--theme-400, #34d399);
+  --color-emerald-500: var(--theme-500, #10b981);
+  --color-emerald-600: var(--theme-600, #059669);
+  --color-emerald-700: var(--theme-700, #047857);
+  --color-emerald-800: var(--theme-800, #065f46);
+  --color-emerald-900: var(--theme-900, #064e3b);
+  --color-emerald-950: var(--theme-950, #022c22);
+
+  --color-teal-50: var(--theme-50, #f0fdfa);
+  --color-teal-100: var(--theme-100, #ccfbf1);
+  --color-teal-200: var(--theme-200, #99f6e4);
+  --color-teal-300: var(--theme-300, #5eead4);
+  --color-teal-400: var(--theme-400, #2dd4bf);
+  --color-teal-500: var(--theme-500, #14b8a6);
+  --color-teal-600: var(--theme-600, #0d9488);
+  --color-teal-700: var(--theme-700, #0f766e);
+  --color-teal-800: var(--theme-800, #115e59);
+  --color-teal-900: var(--theme-900, #134e4a);
+  --color-teal-950: var(--theme-950, #042f2e);
+}
+
+@layer base {
+  :root {
+    --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --accent-primary: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.25);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #040806;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #040806;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-950, #132a1e);
+  border-radius: 9999px;
+  border: 1px solid var(--theme-500, rgba(16, 185, 129, 0.2));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-900, #1b3d2b);
+}
+
+/* Subtle grid texture with dynamic tint */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, var(--theme-500, rgba(16, 185, 129, 0.05)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--theme-500, rgba(16, 185, 129, 0.05)) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(var(--theme-500, rgba(16, 185, 129, 0.09)) 1px, transparent 1px);
+}
+
+/* Glassy Dynamic Panel */
+.glass-panel {
+  background: var(--theme-950, rgba(16, 185, 129, 0.08));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--theme-500, rgba(16, 185, 129, 0.22));
+}
